@@ -1,1 +1,428 @@
+PRACTICA 1
 
+                                  Java Script
+1. Crear una función que cuente cuántas veces aparece cada vocal en un texto y
+devuelva el resultado en un objeto.
+let obj = miFuncion(“euforia”)
+console.log(obj) // { a: 1, e: 1, i: 1, o: 1, u: 1 }
+
+function contarV(texto) {
+ let res = {
+ 'a': 0,
+ 'e': 0,
+ 'i': 0,
+ 'o': 0,
+ 'u': 0
+ };
+ for (let i = 0; i < texto.length; i++) {
+ let car = texto[i];
+ if (car === 'a' || car === 'A') {
+ res.a++;
+ } else if (car === 'e' || car === 'E') {
+ res.e++;
+ } else if (car === 'i' || car === 'I') {
+ res.i++;
+ } else if (car === 'o' || car === 'O') {
+ res.o++;
+ } else if (car === 'u' || car === 'U') {
+ res.u++;
+ }
+ }
+ return res;
+}
+let obj1 = contarV("Vamos hasta el final");
+console.log(obj1)
+
+2. Crear una función que invierta el orden de las palabras en una frase.
+let cad = miFuncion(“abcd”)
+console.log(obj) // dcba
+
+function invertir(frase) {
+ let invertida = '';
+ for (let i = frase.length - 1; i >= 0; i--) {
+ invertida += frase[i];
+ }
+ return invertida;
+}
+let cad = invertir("abcd");
+console.log(cad);
+
+3. Crear una función que reciba un arreglo de números y devuelva en un objeto a los
+pares e impares:
+let obj = miFuncion([1,2,3,4,5])
+console.log(obj) // { pares: [2,4], impares: [1,3,5]}
+
+function separador(numeros) {
+ let pares = [];
+ let impares = [];
+ let contadorP = 0;
+ let contadorI = 0;
+ for (let i = 0; i < numeros.length; i++) {
+ if ((numeros[i] & 1) === 0) {
+ pares[contadorP] = numeros[i];
+ contadorP++;
+ } else {
+ impares[contadorI] = numeros[i];
+ contadorI++;
+ }
+ }
+ return {
+ pares: pares,
+ impares: impares
+ };
+}
+let obj3 = separador([1,2,3,4,5]);
+console.log(obj3);
+
+4. Crear una función que reciba un arreglo de números y devuelva el número mayor y el
+menor, en un objeto.
+let obj = miFuncion([3,1,5,4,2])
+console.log(obj) // { mayor: 5, menor: 1 }
+
+function encontrarMayorMenor(numeros) {
+ let mayor = numeros[0];
+ let menor = numeros[0];
+ for (let i = 1; i < numeros.length; i++) {
+ if (numeros[i] > mayor) {
+ mayor = numeros[i];
+ }
+ if (numeros[i] < menor) {
+ menor = numeros[i];
+ }
+ }
+ return {
+ mayor: mayor,
+ menor: menor
+ };
+}
+let obj4 = encontrarMayorMenor([3, 1, 5, 4, 2]);
+console.log(obj4);
+5. Crear una función que determine si una cadena es palíndromo (se lee igual al derecho
+y al revés).
+let band = miFuncion(“oruro”)
+console.log(band) // true let band = miFuncion(“hola”) console.log(band) // false
+
+function esPalindromo(cadena) {
+ let longitud = cadena.length;
+ let medio = longitud / 2;
+ let medioEntero = 0;
+ for (let i = 0; i < medio; i++) {
+ medioEntero = i;
+ }
+ for (let i = 0; i < medioEntero; i++) {
+ if (cadena[i] !== cadena[longitud - 1 - i]) {
+ return false;
+ }
+ }
+ return true;
+}
+let band = esPalindromo('oruro')
+console.log(band);
+let band2 = esPalindromo('hola')
+console.log(band2);
+
+6. Tomar los dos primeros elementos de un arreglo y almacenarlos en dos variables
+mediante desestructuración.
+
+let usuarios = [
+ {nom: "Ana", edad: 25},
+ {nom: "Luis", edad: 30},
+ {nom: "Maria", edad: 28}
+];
+let [us1, us2] = usuarios;
+console.log(us1.nom);
+console.log(us2.edad);
+
+7. Almacenar el resto de los elementos de un arreglo sin tomar en cuenta los dos
+primeros elementos de un arreglo, mediante desestructuración.
+
+let personas = [
+ {nom: "Juan", edad: 25},
+ {nom: "Luis", edad: 30},
+ {nom: "Marta", edad: 28},
+ {nom: "Pepe", edad: 35}
+];
+let [persona1, persona2, ...demasPersonas] = personas;
+console.log(persona1.nom);
+console.log(persona2.edad);
+console.log(demasPersonas);
+
+                         Callback y Promesas en JS
+
+8. Realizar un código para ejecutar una función callback después 2 segundos.
+
+function procesar(usuario, callback) {
+ console.log('Iniciando procesamiento para: '+usuario);
+ setTimeout(function() {
+ console.log('Procesamiento completado para: '+usuario+' 2 segundos');
+ callback(usuario);
+ }, 2000);
+}
+procesar("María", function(nombre) {
+ console.log('Callback ejecutado para: '+nombre);
+});
+
+9. Crear una promesa que devuelva un mensaje de éxito después de 3 segundos.
+
+async function promesa() {
+ console.log("Iniciando espera de 3 segundos...");
+ const resultado = await new Promise((resolve) => {
+ setTimeout(() => {
+ resolve("Exito promesa de 3 segundos");
+ }, 3000);
+ });
+ console.log(resultado);
+}
+promesa();
+
+10. ¿Cuándo es conveniente utilizar un callback, y cuando es necesario utilizar una
+promesa?
+
+Respuesta.- Los callbacks son simples, sensillos y rapidos de usar y tienen compatibilidad
+con bibliotecas antiguas es mejor usar las para procesos simples.
+Una promesa es necesaria cuando tenemos problemas de operaciones asincronas
+complejas donde hay múltiples pasos que dependen del resultado anterior y el manejo de
+errores centralizados
+
+11. Proporcione un ejemplo concreto de encadenamiento de promesas.
+
+function prepararMasa() {
+ return new Promise(resolve => {
+ setTimeout(() => {
+ console.log('Masa lista');
+ resolve('masa preparada');
+ }, 1000);
+ });
+}
+function agregarIngredientes(masa) {
+ return new Promise(resolve => {
+ setTimeout(() => {
+ console.log('Ingredientes agregados sobre la', masa);
+ resolve('pizza con ingredientes');
+ }, 1000);
+ });
+}
+function hornear(pizza) {
+ return new Promise(resolve => {
+ setTimeout(() => {
+ console.log('Horneando la', pizza);
+ resolve('PIZZA LISTA');
+ }, 5000);
+ });
+}
+async function hacerPizza() {
+ const masa = await prepararMasa();
+ const pizzaConIngredientes = await agregarIngredientes(masa);
+ const pizzaFinal = await hornear(pizzaConIngredientes);
+ console.log('Listo', pizzaFinal);
+}
+hacerPizza();
+
+12. Proporcione un ejemplo concreto donde el anidamiento de callbacks se puede
+reescribir mejor con async/await haciendo el código más limpio y mantenible.
+
+console.log('Ejemplo de Preparar Cafe')
+function calentarAgua(callback) {
+ setTimeout(() => {
+ callback("Agua caliente");
+ }, 1000);
+}
+function molerCafe(callback) {
+ setTimeout(() => {
+ callback("Café molido");
+ }, 500);
+}
+function mezclar(agua, cafe, callback) {
+ setTimeout(() => {
+ callback('Café listo con '+agua+' y ' + cafe);
+ }, 300);
+}
+function hacerCafe(callback) {
+ calentarAgua(function(aguaCaliente) {
+ molerCafe(function(cafeMolido) {
+ mezclar(aguaCaliente, cafeMolido, function(cafeListo) {
+ callback(cafeListo);
+ });
+ });
+ });
+}
+hacerCafe(function(resultado) {
+ console.log(resultado);
+});
+console.log('Lo mismo pero con Async/await')
+function calentarAgua() {
+ return new Promise(resolve => {
+ setTimeout(() => resolve("Agua caliente"), 1000);
+ });
+}
+function molerCafe() {
+ return new Promise(resolve => {
+ setTimeout(() => resolve("Café molido"), 500);
+ });
+}
+function mezclar(agua, cafe) {
+ return new Promise(resolve => {
+ setTimeout(() => resolve('Café listo con '+agua+ ' y '+ cafe), 300);
+ });
+}
+async function hacerCafe() {
+ const aguaCaliente = await calentarAgua();
+ const cafeMolido = await molerCafe();
+ const cafeListo = await mezclar(aguaCaliente, cafeMolido);
+ return cafeListo;
+}
+hacerCafe().then(resultado => {
+ console.log(resultado);
+});
+
+13. Proporcione un ejemplo concreto donde el anidamiento de promesas se puede
+reescribir mejor con async/await haciendo el código más limpio y mantenible.
+
+function verificarStock(id) {
+ return Promise.resolve(10);
+}
+function calcularPrecio(stock) {
+ return Promise.resolve(stock * 20);
+}
+function crearPedido(id, precio) {
+ return Promise.resolve('Pedido-'+id+'-$'+precio);
+}
+function enviarConfirmacion(pedido) {
+ return Promise.resolve(pedido+' confirmado');
+}
+//Anidamiento de promesas
+function procesarPedido(productoId) {
+ return verificarStock(productoId)
+ .then(stock => {
+ return calcularPrecio(stock)
+ .then(precio => {
+ return crearPedido(productoId, precio)
+ .then(pedido => {
+ return enviarConfirmacion(pedido);
+ });
+ });
+ });
+}
+//con Async/Await
+async function procesarPedido(productoId) {
+ const stock = await verificarStock(productoId);
+ const precio = await calcularPrecio(stock);
+ const pedido = await crearPedido(productoId, precio);
+ return await enviarConfirmacion(pedido);
+}
+async function main() {
+ try {
+ const resultado = await procesarPedido(123);
+ console.log(resultado);
+ } catch (error) {
+ console.error(error);
+ }
+}
+main();
+
+14. Proporcione un ejemplo para convertir una promesa en un callback.
+
+function obtenerPromesa(id) {
+ return new Promise((resolve, reject) => {
+ setTimeout(() => {
+ if (id > 0) {
+ resolve({ id: id, nombre: "Usuario " + id });
+ } else {
+ reject("ID inválido");
+ }
+ }, 1000);
+ });
+}
+// Convertida a callback
+function obtenerCallback(id, callback) {
+ obtenerPromesa(id)
+ .then(resultado => {
+ callback(null, resultado);
+ })
+ .catch(error => {
+ callback(error, null);
+ });
+}
+console.log("-----Test-----");
+obtenerCallback(123, function(error, usuario) {
+ if (error) {
+ console.error("Error:", error);
+ } else {
+ console.log("Usuario obtenido:", usuario);
+ }
+});
+
+15. Proporcione un ejemplo para convertir un callback en una promesa.
+
+function leerArchivoCallback(nombre, callback) {
+ setTimeout(() => {
+ if (nombre === 'datos.txt') {
+ callback(null, 'Contenido del archivo: Hola Mundo');
+ } else {
+ callback('Archivo no encontrado', null);
+ }
+ }, 1000);
+}
+// Uso con callback
+leerArchivoCallback('datos.txt', function(error, contenido) {
+ if (error) {
+ console.error('Error:', error);
+ } else {
+ console.log('Éxito:', contenido);
+ }
+});
+//callback a promesa
+function leerArchivoPromesa(nombre) {
+ return new Promise((resolve, reject) => {
+ leerArchivoCallback(nombre, (error, contenido) => {
+ if (error) {
+ reject(error);
+ } else {
+ resolve(contenido);
+ }
+ });
+ });
+}
+async function main() {
+ try {
+ const contenido = await leerArchivoPromesa('datos.txt');
+ console.log('Contenido:', contenido);
+ } catch (error) {
+ console.error('Error:', error);
+ }
+}
+main();
+
+16. Proporcione un ejemplo para migrar una función con promesas a async/await.
+
+function obtenerDatos() {
+ return new Promise((resolve, reject) => {
+ setTimeout(() => {
+ resolve("Datos recibidos");
+ }, 1000);
+ });
+}
+obtenerDatos()
+ .then((resultado) => {
+ console.log(resultado);
+ })
+ .catch((error) => {
+ console.error(error);
+ });
+//Con Async/Await
+function obtenerDatos() {
+ return new Promise((resolve, reject) => {
+ setTimeout(() => {
+ resolve("Datos recibidos");
+ }, 1000);
+ });
+}
+async function mostrarDatos() {
+ try {
+ const resultado = await obtenerDatos();
+ console.log(resultado);
+ } catch (error) {
+ console.error(error);
+ }
+}
+mostrarDatos();
